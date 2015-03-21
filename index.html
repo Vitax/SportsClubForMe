@@ -17,9 +17,15 @@
     <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
 
         <div class="container" ng-controller="ClubData">
-            <input  type="search" ng-model="search" ng-maxlength="100" placeholder="Geben sie hier ihr Suchbegriff ein ....">
+            <input  type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
 
-
+            <div>
+                <ul ng-repeat="result in results">
+                    <li>
+                        {{result}}
+                    </li>
+                </ul>
+            </div>
 
         </div>
 

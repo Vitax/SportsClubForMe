@@ -3,6 +3,8 @@ var app = angular.module('app', []);
 app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
 
     $scope.data = null;
+    $scope.searchCriteria = null;
+    $scope.results = [];
 
     $http({
         method: 'GET',
@@ -14,34 +16,13 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
         console.log(error);
     });
 
-
-/*    upper.upper_categories = [
-        {
-            name: 'Ballsport',
-            image: 'assets/images/ballsport.jpg'
-        },
-        {
-            name: 'Kampfsport',
-            image: 'assets/images/kampfsport.jpg'
-        },
-        {
-            name: 'Laufsport',
-            image: 'assets/images/laufsport.jpg'
-        },
-        {
-            name: 'Radsport',
-            image: 'assets/images/radsport.jpg'
-        },
-        {
-            name: 'Wassersport',
-            image: 'assets/images/wassersport.jpg'
-        },
-        {
-            name: 'Eissport',
-            image: 'assets/images/eissport.jpg'
-        }
-    ];*/
-
+    $scope.search = function() {
+        $scope.data.index.forEach(function(entry) {
+           if(entry.angebote == $scope.searchCriteria) {
+               $scope.results.push(entry.sportverein);
+           }
+        });
+    }
 
 }]);
 
