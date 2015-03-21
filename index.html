@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <!-- scripts and global css -->
+        <link rel="stylesheet" href="CSS/pageStyle.css">
+
+        <script type="text/javascript" src="components/angular/angular.js"></script>
+        <script type="text/javascript" src="sportsclubforme.js"></script>
+
+        <title>A Sports Club for me</title>
+    </head>
+
+    <body ng-app="app">
+
+    <div ng-controller="ClubData">booty
+
+        <div>{{data}}</div>
+    </div>
+<!--
+    <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
+
+        <div class="container" ng-controller="ClubData">
+            <input  type="search" ng-model="search" ng-maxlength="100" placeholder="Geben sie hier ihr Suchbegriff ein ....">
+
+            <em  ng-repeat="category in upper_categories | filter:search" ng-show="category.name  filter:search">
+                <p  >{{category.name}}</p>
+            </em>
+        </div>-->
+
+    </body>
+
+</html>

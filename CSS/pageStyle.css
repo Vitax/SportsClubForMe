@@ -1,0 +1,31 @@
+div.container {
+    align-content: center;
+    width: 1100px;
+    height: 700px;
+    padding-left: 25%;
+    padding-right: 25%;
+
+    float: left;
+    margin: 5px;
+}
+
+div.clubs {
+    align-content: center;
+    width: 300px;
+    height: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+input{
+    width: 75%;
+    height: 30px;
+}
+
+#category_text {
+    text-align: center;
+}
+
+body {
+    background-color: #d5d5d5;
+}
