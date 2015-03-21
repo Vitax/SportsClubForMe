@@ -17,10 +17,13 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
     });
 
     $scope.search = function() {
+        $scope.results = [];
+        var s = $scope.searchCriteria.toLowerCase();
+
         $scope.data.index.forEach(function(entry) {
-           if(entry.angebote == $scope.searchCriteria) {
-               $scope.results.push(entry.sportverein);
-           }
+            if(entry.angebote.toLowerCase().indexOf(s) > -1){
+                $scope.results.push(entry);
+            }
         });
     }
 
