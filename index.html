@@ -20,10 +20,12 @@
             <input  type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
 
             <div>
-                <ul ng-repeat="result in results">
-                    <li>
-                        {{result.sportverein}}
-                    </li>
+                <ul ng-repeat="result in results"  ng-hide="searchCriteria == '' ">
+                        <span style="font-size: 1.5em">{{result.sportverein}}</span> <br>
+                        <em>{{result.angebote + " ,"}}</em>
+                        <em>{{result.anschrift + " ,"}}</em>
+                        <em>{{result.plz}} </em>
+                        <hr>
                 </ul>
             </div>
 
