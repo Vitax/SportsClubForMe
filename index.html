@@ -17,18 +17,21 @@
     <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
 
         <div class="container" ng-controller="ClubData">
-            <input  type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
+            <input type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
 
-            <div>
-                <ul ng-repeat="result in results"  ng-hide="searchCriteria == '' ">
-                        <span style="font-size: 1.5em">{{result.sportverein}}</span> <br>
-                        <em>{{result.angebote + " ,"}}</em>
-                        <em>{{result.anschrift + " ,"}}</em>
-                        <em>{{result.plz}} </em>
-                        <hr>
+            <!-- Only do this if you wanna do a simple search -->
+            <ul ng-repeat="result in results" ng-hide="searchCriteria == ''" >
+
+                <!-- Add this if you want to sort the search with key value pairs -->
+                <ul ng-repeat="(key,value) in result">
+                    <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
+                    <em>{{value.angebote + ' , '}}</em>
+                    <em>{{value.anschrift + ' , '}}</em>
+                    <em>{{value.plz}}</em>
+                    <hr>
                 </ul>
-            </div>
 
+            </ul>
         </div>
 
     </body>
