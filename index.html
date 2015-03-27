@@ -7,9 +7,12 @@
         <link rel="stylesheet" href="CSS/pageStyle.css">
 
         <script type="text/javascript" src="components/angular/angular.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
         <script type="text/javascript" src="sportsclubforme.js"></script>
+        <script type="text/javascript" src="map_widget/map.js"></script>
 
         <title>A Sports Club for me</title>
+
     </head>
 
     <body ng-app="app">
@@ -19,19 +22,22 @@
         <div class="container" ng-controller="ClubData">
             <input type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
 
-            <!-- Only do this if you wanna do a simple search -->
-            <ul ng-repeat="result in results" ng-hide="searchCriteria == ''" >
+            <div class="clubs">
+                <!-- Only do this if you wanna do a simple search -->
+                <ul ng-repeat="result in results" ng-hide="searchCriteria == ''" >
+                        <!-- Add this if you want to sort the search with key value pairs -->
+                        <ul ng-repeat="(key,value) in result">
+                            <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
+                            <em>{{value.angebote + ' , '}}</em>
+                            <em>{{value.anschrift + ' , '}}</em>
+                            <em>{{value.plz}}</em>
+                            <hr>
+                        </ul>
+                    </ul>
+            </div>
 
-                <!-- Add this if you want to sort the search with key value pairs -->
-                <ul ng-repeat="(key,value) in result">
-                    <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
-                    <em>{{value.angebote + ' , '}}</em>
-                    <em>{{value.anschrift + ' , '}}</em>
-                    <em>{{value.plz}}</em>
-                    <hr>
-                </ul>
+            <div class="map" id="mapCanvas"> </div>
 
-            </ul>
         </div>
 
     </body>
