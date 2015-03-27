@@ -1,11 +1,15 @@
-function init() {
+var map = angular.module('map', []);
 
+map.controller('MapCtrl', ['$scope', function ($scope) {
+
+    var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
+
     var mapOptions = {
-        center: {lat: 52.50, lng: 13.34},
+        disableDefaultUI: true,
+        center: berlinLatLng,
         zoom: 10
     };
-    var mapView = new google.maps.Map(mapCanvas, mapOptions);
-}
 
-google.maps.event.addDomListener(window, 'load', init);
+    $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+}]);

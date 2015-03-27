@@ -15,30 +15,38 @@
 
     </head>
 
-    <body ng-app="app">
+    <body>
 
-    <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
-
+    <div ng-app="app">
         <div class="container" ng-controller="ClubData">
-            <input type="search" ng-model="searchCriteria" ng-change="search()" placeholder="Geben sie hier ihr Suchbegriff ein ....">
+            <panel>
+                <input type="search" ng-model="searchCriteria" ng-change="search()"  placeholder="Geben sie hier ihr Suchbegriff ein ....">
+            </panel>
 
             <div class="clubs">
                 <!-- Only do this if you wanna do a simple search -->
                 <ul ng-repeat="result in results" ng-hide="searchCriteria == ''" >
-                        <!-- Add this if you want to sort the search with key value pairs -->
-                        <ul ng-repeat="(key,value) in result">
-                            <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
-                            <em>{{value.angebote + ' , '}}</em>
-                            <em>{{value.anschrift + ' , '}}</em>
-                            <em>{{value.plz}}</em>
-                            <hr>
-                        </ul>
+                    <!-- Add this if you want to sort the search with key value pairs -->
+                    <ul ng-repeat="(key,value) in result">
+                        <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
+                        <em>{{value.angebote + ' , '}}</em>
+                        <em>{{value.anschrift + ' , '}}</em>
+                        <em>{{value.plz}}</em>
+                        <hr>
                     </ul>
+                </ul>
             </div>
-
-            <div class="map" id="mapCanvas"> </div>
-
         </div>
+    </div>
+
+    <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
+
+    <div ng-app="map" ng-controller="MapCtrl" >
+        <div class="map" id="mapCanvas"> </div>
+    </div>
+
+
+
 
     </body>
 

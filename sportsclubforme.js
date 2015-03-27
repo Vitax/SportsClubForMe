@@ -10,7 +10,6 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
         method: 'GET',
         url: "assets/data/Marzahn-Hellersdorf/Marzahn-Hellersdorf.json"
     }).success(function (data) {
-        console.log(data);
         $scope.data = data;
     }).error(function (error) {
         console.log(error);
@@ -35,7 +34,8 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
                 //$scope.results.push(entry);
             }
         });
-        console.log($scope.results);
+        //display the $result array in the console
+        //console.log($scope.results);
     }
 }]);
 
