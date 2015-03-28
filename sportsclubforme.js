@@ -1,6 +1,21 @@
 var app = angular.module('app', []);
 
-app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
+app.service('dataService', function () {
+    var data = {};
+
+    return {
+        getProperty: function () {
+            return data;
+        },
+        setProperty: function (value) {
+            data = value;
+            console.log('Value: ' + data);
+        }
+    }
+})
+;
+
+app.controller('ClubData', ['$scope', '$http','dataService', function ($scope, $http, dataService) {
 
     $scope.data = null;
     $scope.searchCriteria = null;
@@ -21,7 +36,7 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
         var s = $scope.searchCriteria.toLowerCase();
 
         $scope.data.index.forEach(function (entry) {
-            if (entry.angebote.toLowerCase().indexOf(s) > -1 || entry.plz.indexOf(s) >- 1) {
+            if (entry.angebote.toLowerCase().indexOf(s) > -1 || entry.plz.indexOf(s) > -1) {
 
                 var keys = Object.keys($scope.results);
 
@@ -39,4 +54,17 @@ app.controller('ClubData', ['$scope', '$http', function ($scope, $http) {
     }
 }]);
 
+app.controller('MapCtrl', ['$scope', function ($scope) {
+
+    var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
+    var mapCanvas = document.getElementById('mapCanvas');
+
+    var mapOptions = {
+        disableDefaultUI: true,
+        center: berlinLatLng,
+        zoom: 10
+    };
+
+    $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+}]);
 
