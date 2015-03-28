@@ -1,24 +1,21 @@
 var app = angular.module('app', []);
 
 app.service('dataService', function () {
-    var data = {};
+    var data = null;
 
     return {
-        getProperty: function () {
-            return data;
-        },
-        setProperty: function (value) {
+        setData: function (value) {
             data = value;
-            console.log('Value: ' + data);
+        }, getData: function () {
+            return data;
         }
     }
-})
-;
+});
 
-app.controller('ClubData', ['$scope', '$http','dataService', function ($scope, $http, dataService) {
+app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
 
-    $scope.data = null;
-    $scope.searchCriteria = null;
+    $scope.data = undefined;
+    $scope.searchCriteria = undefined;
     $scope.results = {};
 
     $http({
@@ -26,6 +23,7 @@ app.controller('ClubData', ['$scope', '$http','dataService', function ($scope, $
         url: "assets/data/Marzahn-Hellersdorf/Marzahn-Hellersdorf.json"
     }).success(function (data) {
         $scope.data = data;
+        dataService.setData($scope.data);
     }).error(function (error) {
         console.log(error);
     });
@@ -54,10 +52,16 @@ app.controller('ClubData', ['$scope', '$http','dataService', function ($scope, $
     }
 }]);
 
-app.controller('MapCtrl', ['$scope', function ($scope) {
+app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataService) {
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
+    var cloneData = dataService.getData();
+    var marks = [];
+
+    cloneData.index.forEach(function (entry) {
+        marks.push(entry.anschrift);
+    });
 
     var mapOptions = {
         disableDefaultUI: true,
