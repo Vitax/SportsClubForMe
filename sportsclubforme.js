@@ -1,16 +1,16 @@
 var app = angular.module('app', []);
 
-app.service('dataService', function () {
+app.service('dataService', ['$rootScope', function ($rootScope) {
     var data = null;
 
-    return {
-        setData: function (value) {
-            data = value;
-        }, getData: function () {
-            return data;
-        }
+    this.get = function () {
+        return data;
     }
-});
+    this.set = function (value) {
+        data = value;
+        $rootScope.$broadcast('onData');
+    }
+}]);
 
 app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
 
@@ -23,10 +23,11 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
         url: "assets/data/Marzahn-Hellersdorf/Marzahn-Hellersdorf.json"
     }).success(function (data) {
         $scope.data = data;
-        dataService.setData($scope.data);
+        dataService.set($scope.data);
     }).error(function (error) {
         console.log(error);
     });
+
 
     $scope.search = function () {
         $scope.results = {};
@@ -52,15 +53,20 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
     }
 }]);
 
+
 app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataService) {
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
-    var cloneData = dataService.getData();
     var marks = [];
 
-    cloneData.index.forEach(function (entry) {
-        marks.push(entry.anschrift);
+    $scope.$on('onData', function () {
+        var cloneData = dataService.get();
+
+        cloneData.index.forEach(function (entry) {
+            marks.push(entry.anschrift);
+            console.log(marks[entry]);
+        });
     });
 
     var mapOptions = {
