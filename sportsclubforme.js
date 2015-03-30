@@ -6,6 +6,7 @@ app.service('dataService', ['$rootScope', function ($rootScope) {
     this.get = function () {
         return data;
     }
+
     this.set = function (value) {
         data = value;
         $rootScope.$broadcast('onData');
@@ -14,8 +15,8 @@ app.service('dataService', ['$rootScope', function ($rootScope) {
 
 app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
 
-    $scope.data = undefined;
-    $scope.searchCriteria = undefined;
+    $scope.data = null;
+    $scope.searchCriteria = null;
     $scope.results = {};
 
     $http({
@@ -58,15 +59,17 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
-    var marks = [];
+
+    $scope.marks = [];
 
     $scope.$on('onData', function () {
         var cloneData = dataService.get();
 
         cloneData.index.forEach(function (entry) {
-            marks.push(entry.anschrift);
-            console.log(marks[entry]);
+            $scope.marks.push(entry.anschrift);
         });
+        initMarks();
+
     });
 
     var mapOptions = {
@@ -75,6 +78,32 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
         zoom: 10
     };
 
-    $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+
+
+    function initMarks() {
+        var geocoder = new google.maps.Geocoder();
+
+        for (var i = 1; i < $scope.marks.length; i++) {
+            geocoder.geocode({'address': $scope.marks[i]}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    //add marker to the map
+                    for (var i = 0; i < results.length; i++) {
+                        //console.log(results[i].geometry.location);
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[i].geometry.location
+                        });
+                    }
+
+                } else {
+                    console.log("Geocode for " + address + " was not successful for the following reason: " + status);
+                }
+            });
+        }
+
+    }
 }]);
 
