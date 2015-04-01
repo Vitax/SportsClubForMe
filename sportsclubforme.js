@@ -60,16 +60,17 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
 
+    $scope.geoCodes = [];
     $scope.marks = [];
 
     $scope.$on('onData', function () {
         var cloneData = dataService.get();
 
         cloneData.index.forEach(function (entry) {
-            $scope.marks.push(entry.anschrift);
+            $scope.marks.push(entry.anschrift + ', ' + entry.plz);
         });
-        initMarks();
 
+        initMarks();
     });
 
     var mapOptions = {
@@ -82,28 +83,30 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
 
 
     function initMarks() {
+
         var geocoder = new google.maps.Geocoder();
 
         for (var i = 1; i < $scope.marks.length; i++) {
+
             geocoder.geocode({'address': $scope.marks[i]}, function (results, status) {
+
                 if (status == google.maps.GeocoderStatus.OK) {
 
                     //add marker to the map
                     for (var i = 0; i < results.length; i++) {
-                        //console.log(results[i].geometry.location);
+                        console.log(results[i].geometry.location);
 
                         var marker = new google.maps.Marker({
                             map: map,
                             position: results[i].geometry.location
                         });
                     }
-
                 } else {
                     console.log("Geocode for " + address + " was not successful for the following reason: " + status);
                 }
             });
+            //console.log('Addresse: ' + $scope.marks[i]);
         }
-
     }
 }]);
 
