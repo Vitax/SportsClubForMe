@@ -32,10 +32,11 @@
                     <ul ng-repeat="result in results" ng-hide="searchCriteria == ''">
                         <!-- Add this if you want to sort the search with key value pairs -->
                         <ul ng-repeat="(key,value) in result">
-                            <Span style=" font-size: 1.5em">{{value.sportverein}}</Span> <br>
-                            <em>{{value.angebote + ' , '}}</em>
-                            <em>{{value.anschrift + ' , '}}</em>
-                            <em>{{value.plz}}</em>
+                            <Span style=" font-size: 1.5em">{{value.clubname}}</Span> <br>
+                            <em>{{value.address + ' , '}}</em>
+                            <em>{{value.postcode}}</em>
+                            <em>{{value.phonenumber}}</em>
+                            <em>{{value.webpage}}</em>
                             <hr>
                         </ul>
                     </ul>

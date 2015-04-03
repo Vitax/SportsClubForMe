@@ -21,7 +21,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
     $http({
         method: 'GET',
-        url: "assets/data/Marzahn-Hellersdorf/Marzahn-Hellersdorf.json"
+        url: "assets/data/SportClubForMe_Data.json"
     }).success(function (data) {
         $scope.data = data;
         dataService.set($scope.data);
@@ -35,15 +35,15 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
         var s = $scope.searchCriteria.toLowerCase();
 
-        $scope.data.index.forEach(function (entry) {
-            if (entry.angebote.toLowerCase().indexOf(s) > -1 || entry.plz.indexOf(s) > -1) {
+        $scope.data.clubdata.forEach(function (entry) {
+            if (entry.clubname.toLowerCase().indexOf(s) > -1 || entry.postcode.indexOf(s) > -1) {
 
                 var keys = Object.keys($scope.results);
 
-                if (keys.indexOf(entry.angebote) > -1 || keys.indexOf(entry.plz) > -1) {
-                    $scope.results[entry.angebote].push(entry);
+                if (keys.indexOf(entry.clubname) > -1 || keys.indexOf(entry.postcode) > -1) {
+                    $scope.results[entry.clubname].push(entry);
                 } else {
-                    $scope.results[entry.angebote] = [entry];
+                    $scope.results[entry.clubname] = [entry];
                 }
                 // push values of the jason without sorting
                 //$scope.results.push(entry);
@@ -66,8 +66,8 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
     $scope.$on('onData', function () {
         var cloneData = dataService.get();
 
-        cloneData.index.forEach(function (entry) {
-            $scope.marks.push(entry.anschrift + ', ' + entry.plz);
+        cloneData.clubdata.forEach(function (entry) {
+            $scope.marks.push(entry.address + ', ' + entry.postcode);
         });
 
         initMarks();
@@ -94,18 +94,16 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
 
                     //add marker to the map
                     for (var i = 0; i < results.length; i++) {
-                        console.log(results[i].geometry.location);
+                        //console.log(results[i].geometry.location);
 
                         var marker = new google.maps.Marker({
                             map: map,
                             position: results[i].geometry.location
                         });
                     }
-                } else {
-                    console.log("Geocode for " + address + " was not successful for the following reason: " + status);
                 }
             });
-            //console.log('Addresse: ' + $scope.marks[i]);
+            console.log('Addresse: ' + $scope.marks[i]);
         }
     }
 }]);
