@@ -29,15 +29,24 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
         console.log(error);
     });
 
+    // function to check not useful data
+    $scope.checkData = function () {
+        $scope.data.clubdata.forEach(function (entry) {
+            if (entry.postcode == undefined || entry.address == undefined || entry.phonenumber == undefined
+                || entry.mailaddress == undefined || entry.webpage == undefined) {
+                console.log('Clubname: ' + entry.clubname);
+                console.log('Clublink: ' + entry.clublink);
+            }
+        });
+    }
 
-    $scope.search = function () {
+    $scope.searchClub = function () {
         $scope.results = {};
 
         var s = $scope.searchCriteria.toLowerCase();
 
         $scope.data.clubdata.forEach(function (entry) {
             if (entry.clubname.toLowerCase().indexOf(s) > -1 || entry.postcode.indexOf(s) > -1) {
-
                 var keys = Object.keys($scope.results);
 
                 if (keys.indexOf(entry.clubname) > -1 || keys.indexOf(entry.postcode) > -1) {
@@ -103,7 +112,7 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
                     }
                 }
             });
-            console.log('Addresse: ' + $scope.marks[i]);
+            //console.log('Addresse: ' + $scope.marks[i]);
         }
     }
 }]);
