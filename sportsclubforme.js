@@ -21,7 +21,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
     $http({
         method: 'GET',
-        url: "assets/data/SportClubForMe_Data.json"
+        url: "assets/data/SportClubForMe_Data_Copy.json"
     }).success(function (data) {
         $scope.data = data;
         dataService.set($scope.data);
@@ -64,7 +64,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 }]);
 
 
-app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataService) {
+app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
@@ -79,7 +79,9 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
             $scope.marks.push(entry.address + ', ' + entry.postcode);
         });
 
-        initMarks();
+        setInterval(function () {
+            initMarks();
+        }, 4000);
     });
 
     var mapOptions = {
@@ -93,6 +95,8 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
 
     function initMarks() {
 
+        $scope.geoCode = {};
+
         var geocoder = new google.maps.Geocoder();
 
         for (var i = 1; i < $scope.marks.length; i++) {
@@ -103,7 +107,20 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
 
                     //add marker to the map
                     for (var i = 0; i < results.length; i++) {
-                        //console.log(results[i].geometry.location);
+                        $scope.geoCode = 'geocode:' + '"' + results[i].geometry.location + '"';
+
+                        console.log("geoCode: " + $scope.geoCode);
+                        //$http({
+                        //    method: 'POST',
+                        //    url: 'assets/data/SportClubForMe_Data_Copy.json '
+                        //}).success(function (data) {
+                        //    data.clubdata.forEach(function (entry) {
+                        //        entry.push($scope.geoCode);
+                        //    });
+                        //}).error(function (data) {
+                        //    console.log("Error trying: " + data);
+                        //});
+                        //
 
                         var marker = new google.maps.Marker({
                             map: map,
@@ -116,4 +133,5 @@ app.controller('MapCtrl', ['$scope', 'dataService', function ($scope, dataServic
         }
     }
 }]);
+
 
