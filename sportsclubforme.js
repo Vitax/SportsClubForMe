@@ -22,12 +22,14 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
     $http({
         method: 'GET',
         url: "assets/data/SportClubForMe_Data_Copy.json"
-    }).success(function (data) {
-        $scope.data = data;
-        dataService.set($scope.data);
-    }).error(function (error) {
-        console.log(error);
-    });
+    })
+        .success(function (data) {
+            $scope.data = data;
+            dataService.set($scope.data);
+        })
+        .error(function (error) {
+            console.log(error);
+        });
 
     // function to check not useful data
     $scope.checkData = function () {
@@ -72,6 +74,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
     $scope.geoCodes = [];
     $scope.marks = [];
 
+
     $scope.$on('onData', function () {
         var cloneData = dataService.get();
 
@@ -79,9 +82,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
             $scope.marks.push(entry.address + ', ' + entry.postcode);
         });
 
-        setInterval(function () {
-            initMarks();
-        }, 4000);
+        initMarks();
     });
 
     var mapOptions = {
@@ -107,29 +108,15 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
 
                     //add marker to the map
                     for (var i = 0; i < results.length; i++) {
-                        $scope.geoCode = 'geocode:' + '"' + results[i].geometry.location + '"';
+                        $scope.geoCode = ",geocode:" + '"' + results[i].geometry.location + '"';
 
-                        console.log("geoCode: " + $scope.geoCode);
-                        //$http({
-                        //    method: 'POST',
-                        //    url: 'assets/data/SportClubForMe_Data_Copy.json '
-                        //}).success(function (data) {
-                        //    data.clubdata.forEach(function (entry) {
-                        //        entry.push($scope.geoCode);
-                        //    });
-                        //}).error(function (data) {
-                        //    console.log("Error trying: " + data);
+                        //var marker = new google.maps.Marker({
+                        //    map: map,
+                        //    position: results[i].geometry.location
                         //});
-                        //
-
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            position: results[i].geometry.location
-                        });
                     }
                 }
             });
-            //console.log('Addresse: ' + $scope.marks[i]);
         }
     }
 }]);
