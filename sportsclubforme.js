@@ -21,21 +21,19 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
     $http({
         method: 'GET',
-        url: "assets/data/SportClubForMe_Data_Copy.json"
-    })
-        .success(function (data) {
-            $scope.data = data;
-            dataService.set($scope.data);
-        })
-        .error(function (error) {
-            console.log(error);
-        });
+        url: "assets/data/SportClubForMe_Data.json"
+    }).success(function (data) {
+        $scope.data = data;
+        dataService.set($scope.data);
+    }).error(function (error) {
+        console.log(error);
+    });
 
     // function to check not useful data
     $scope.checkData = function () {
         $scope.data.clubdata.forEach(function (entry) {
             if (entry.postcode == undefined || entry.address == undefined || entry.phonenumber == undefined
-                || entry.mailaddress == undefined || entry.webpage == undefined) {
+                || entry.mailaddress == undefined || entry.webpage == undefined || entry.latlng == undefined) {
                 console.log('Clubname: ' + entry.clubname);
                 console.log('Clublink: ' + entry.clublink);
             }
@@ -74,50 +72,28 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
     $scope.geoCodes = [];
     $scope.marks = [];
 
-
     $scope.$on('onData', function () {
-        var cloneData = dataService.get();
-
-        cloneData.clubdata.forEach(function (entry) {
-            $scope.marks.push(entry.address + ', ' + entry.postcode);
-        });
+        $scope.cloneData = dataService.get();
 
         initMarks();
     });
 
     var mapOptions = {
-        disableDefaultUI: true,
         center: berlinLatLng,
         zoom: 10
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
-
     function initMarks() {
 
-        $scope.geoCode = {};
-
-        var geocoder = new google.maps.Geocoder();
-
-        for (var i = 1; i < $scope.marks.length; i++) {
-
-            geocoder.geocode({'address': $scope.marks[i]}, function (results, status) {
-
-                if (status == google.maps.GeocoderStatus.OK) {
-
-                    //add marker to the map
-                    for (var i = 0; i < results.length; i++) {
-                        $scope.geoCode = ",geocode:" + '"' + results[i].geometry.location + '"';
-
-                        //var marker = new google.maps.Marker({
-                        //    map: map,
-                        //    position: results[i].geometry.location
-                        //});
-                    }
-                }
+        //add marker to the map
+       $scope.cloneData.clubdata.forEach(function (entry) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: entry.latlng
             });
-        }
+        });
     }
 }]);
 
