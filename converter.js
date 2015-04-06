@@ -1,6 +1,6 @@
 function CSVtoJSON() {
 
-    var csv = "assets/data/SportClubsForMe_Data.csv";
+    var csv = "assets/data/SportClubForMe_Data.csv";
     var array = CSVToArray(csv);
     var objectArray = [];
 

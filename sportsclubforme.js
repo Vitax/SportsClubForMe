@@ -21,7 +21,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
     $http({
         method: 'GET',
-        url: "assets/data/SportClubForMe_Tryout.json"
+        url: "assets/data/SportClubForMe_Complete.json"
     }).success(function (data) {
         $scope.data = data;
         dataService.set($scope.data);
@@ -69,9 +69,6 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
 
-    $scope.geoCodes = [];
-    $scope.marks = [];
-
     $scope.$on('onData', function () {
         $scope.cloneData = dataService.get();
 
@@ -79,22 +76,30 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
     });
 
     var mapOptions = {
+
         center: berlinLatLng,
         zoom: 10
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
-    function initMarks() {
+    //add marker to the map
 
-        //add marker to the map
-        $scope.cloneData.clubdata.forEach(function (entry) {
+    /*$scope.cloneData.clubdata.forEach(function (entry) {
+     marker = new google.maps.Marker({
+     map: map,
+     position: new google.maps.LatLng(entry.latlng)
+     });*/
+
+    initMarks = function () {
+        for (var i = 0; i < $scope.cloneData.length; i++) {
+            var clubLatLng = new google.maps.LatLng(parseFloat($scope.cloneData.clubdata.latlng[i]));
+
             var marker = new google.maps.Marker({
-                map: map,
-                position: parseFloat(entry.latlng)
+                position: clubLatLng,
+                map: map
             });
-        });
+        }
     }
 }]);
-
 
