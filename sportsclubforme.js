@@ -13,7 +13,20 @@ app.service('dataService', ['$rootScope', function ($rootScope) {
     }
 }]);
 
-app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
+app.service('geoDataService', ['$rootScope', function ($rootScope) {
+    var searchValues = null;
+
+    this.get = function () {
+        return searchValues;
+    }
+
+    this.set = function (sportClubs) {
+        searchValues = sportClubs;
+        $rootScope.$broadcast('onUpdate');
+    }
+}]);
+
+app.controller('ClubData', ['$scope', '$http', 'dataService', 'geoDataService', function ($scope, $http, dataService, geoDataService) {
 
     $scope.data = null;
     $scope.searchCriteria = null;
@@ -41,7 +54,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
     }
 
     $scope.searchClub = function () {
-        $scope.results = {};
+        //$scope.results = {};
 
         var s = $scope.searchCriteria.toLowerCase();
 
@@ -54,6 +67,9 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
                 } else {
                     $scope.results[entry.clubname] = [entry];
                 }
+
+                geoDataService.set($scope.results);
+
                 // push values of the jason without sorting
                 //$scope.results.push(entry);
             }
@@ -64,36 +80,63 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 }]);
 
 
-app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $http, dataService) {
+app.controller('MapCtrl', ['$scope', '$http', 'dataService', 'geoDataService', function ($scope, $http, dataService, geoDataService) {
+
+
+    //$scope.$on('onData', function () {
+    //    $scope.cloneData = dataService.get();
+    //
+    //    $scope.initMarks();
+    //});
+
+    $scope.$on('onUpdate', function () {
+        $scope.clubResults = geoDataService.get();
+
+        $scope.initMarks();
+    });
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
 
-    $scope.$on('onData', function () {
-        $scope.cloneData = dataService.get();
-
-        initMarks();
-    });
-
     var mapOptions = {
-
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
         zoom: 10
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
-    //add marker to the map
-    var initMarks = function () {
-        for (var i = 0; i < $scope.cloneData.clubdata.length; i++) {
-            var clubLatLng = new google.maps.LatLng(parseFloat($scope.cloneData.clubdata[i].position.lat),
-                parseFloat($scope.cloneData.clubdata[i].position.lng));
+    var contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading">Stuff</h1>'
 
-            var marker = new google.maps.Marker({
-                position: clubLatLng,
-                map: map
-            });
-        }
+
+    $scope.infoWindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    //add marker to the map
+    $scope.initMarks = function () {
+
+        angular.forEach($scope.clubResults, function (value, key) {
+            for (var i = 0; i < value.length; i++) {
+                var clubLatLng = new google.maps.LatLng(value[i].position.lat,
+                    value[i].position.lng);
+
+                var marker = new google.maps.Marker({
+                    position: clubLatLng,
+                    map: map
+                });
+            }
+        });
+    }
+
+    var deleteMarker = function (value) {
+        var marker = value;
+
+        marker.setMap(null);
     }
 }]);
 
