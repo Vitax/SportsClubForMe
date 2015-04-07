@@ -21,7 +21,7 @@ app.controller('ClubData', ['$scope', '$http', 'dataService', function ($scope, 
 
     $http({
         method: 'GET',
-        url: "assets/data/SportClubForMe_New.json"
+        url: "assets/data/SportClubForMe_Working.json"
     }).success(function (data) {
         $scope.data = data;
         dataService.set($scope.data);
@@ -84,7 +84,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'dataService', function ($scope, $
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
     //add marker to the map
-    function initMarks() {
+    var initMarks = function () {
         for (var i = 0; i < $scope.cloneData.clubdata.length; i++) {
             var clubLatLng = new google.maps.LatLng(parseFloat($scope.cloneData.clubdata[i].position.lat),
                 parseFloat($scope.cloneData.clubdata[i].position.lng));
