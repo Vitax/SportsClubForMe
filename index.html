@@ -6,8 +6,7 @@
         <link rel="stylesheet" href="CSS/pageStyle.css">
 
         <script type="text/javascript" src="components/angular/angular.js"></script>
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
         <script type="text/javascript" src="sportsclubforme.js"></script>
         <script type="text/javascript" src="map_widget/map.js"></script>
 
@@ -18,7 +17,6 @@
     <body>
 
         <div ng-app="app">
-
             <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
 
             <div class="container" ng-controller="ClubData">
@@ -29,16 +27,16 @@
 
                 <div class="clubs">
                     <!-- Only do this if you wanna do a simple search -->
-                    <ul ng-repeat="result in results" ng-hide="searchCriteria == ''">
+                    <!--<ul ng-repeat="result in results" >-->
                         <!-- Add this if you want to sort the search with key value pairs -->
-                        <ul ng-repeat="(key,value) in result">
+                        <ul ng-repeat="(key,value) in keys">
                             <Span style=" font-size: 1.2em">{{value.clubname}}</Span> <br>
                             <em>{{value.address + ' , '}}</em>
                             <em>{{value.postcode}}</em>
                             <em>{{value.phonenumber}}</em>
                             <em>{{value.webpage}}</em>
                             <hr>
-                        </ul>
+                        <!--</ul>-->
                     </ul>
                 </div>
             </div>
@@ -47,5 +45,6 @@
                 <div class="map" id="mapCanvas"></div>
             </div>
         </div>
+
     </body>
 </html>
