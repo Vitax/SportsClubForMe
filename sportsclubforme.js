@@ -2,6 +2,7 @@ var app = angular.module('app', []);
 
 app.service('geoDataService', ['$rootScope', function ($rootScope) {
     var searchValues = null;
+    var zoomValue = 10;
 
     this.get = function () {
         return searchValues;
@@ -10,6 +11,15 @@ app.service('geoDataService', ['$rootScope', function ($rootScope) {
     this.set = function (sportClubs) {
         searchValues = sportClubs;
         $rootScope.$broadcast('onUpdate');
+    }
+
+    this.getZoom = function () {
+        return zoomValue;
+    }
+
+    this.setZoom = function (value) {
+        zoomValue = value;
+        $rootScope.$broadcast('zoomChanged');
     }
 }]);
 
@@ -68,13 +78,15 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
     var mapCanvas = document.getElementById('mapCanvas');
+    var zoomValue = geoDataService.getZoom();
 
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
-        zoom: 10
+        zoom: zoomValue
     };
 
+    console.log('zoomvalue: ' + zoomValue);
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
     var contentString =
@@ -89,23 +101,38 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     });
 
     var markers = [];
-    var setAllMap = function (map) {
+    var clearMap = function (map) {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map);
         }
         markers = [];
     }
 
-    //add marker to the map
-    var initMarks = function () {
-        setAllMap(null);
+    var setMapCenter = function (results) {
+        var counter = 0;
+
         var deltaLat = 0;
         var deltaLng = 0;
+        var deltaLatLng = 0;
 
-        angular.forEach($scope.clubResults, function (value, key) {
+        angular.forEach(results, function (value, key) {
+            counter++;
             deltaLat += value.position.lat;
             deltaLng += value.position.lng;
         });
+
+        if (results != [] && deltaLat != 0 && deltaLng != 0) {
+            deltaLatLng = new google.maps.LatLng((deltaLat / counter), (deltaLng / counter));
+        } else {
+            deltaLatLng = berlinLatLng;
+        }
+
+        map.panTo(deltaLatLng);
+    }
+
+    //add marker to the map
+    var initMarks = function () {
+        clearMap(null);
 
         angular.forEach($scope.clubResults, function (value, key) {
             var clubLatLng = new google.maps.LatLng(value.position.lat,
@@ -115,9 +142,10 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
                 position: clubLatLng,
                 map: map
             });
-
             markers.push(marker);
         });
+
+        setMapCenter($scope.clubResults);
     }
 }]);
 
