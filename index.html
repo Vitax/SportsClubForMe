@@ -2,6 +2,7 @@
 
 <html>
     <head>
+
         <!-- scripts and global css -->
         <link rel="stylesheet" href="CSS/pageStyle.css">
 
@@ -17,26 +18,23 @@
     <body>
 
         <div ng-app="app">
-            <h1 style="font-size:300%;text-align:center"> A Sports Club for me </h1>
+            <h1 style="font-size:300%;text-align:center"> A Sport Club for me </h1>
 
             <div class="container" ng-controller="ClubData">
                 <panel>
-                    <input type="search" ng-model="searchCriteria" ng-change="searchClub()"
+                    <input class="searchfield" type="search" ng-model="searchCriteria" ng-change="searchClub()"
                            placeholder="Geben sie hier ihr Suchbegriff ein ....">
                 </panel>
 
                 <div class="clubs">
-                    <!-- Only do this if you wanna do a simple search -->
-                    <!--<ul ng-repeat="result in results" >-->
-                        <!-- Add this if you want to sort the search with key value pairs -->
-                        <ul ng-repeat="(key,value) in keys">
-                            <Span style=" font-size: 1.2em">{{value.clubname}}</Span> <br>
-                            <em>{{value.address + ' , '}}</em>
-                            <em>{{value.postcode}}</em>
-                            <em>{{value.phonenumber}}</em>
-                            <em>{{value.webpage}}</em>
-                            <hr>
-                        <!--</ul>-->
+                    <!-- iterate over the keys object to get the values out of it-->
+                    <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''">
+                        <Span style=" font-size: 1.2em">{{value.clubname}}</Span> <br>
+                        <em>{{'Address: ' + value.address }}</em> <br>
+                        <em>{{'Postcode: ' + value.postcode }}</em> <br>
+                        <em>{{'Phonenumber: ' + value.phonenumber }}</em> <br>
+                        <em>{{'Webpage: ' +value.webpage}}</em>
+                        <hr>
                     </ul>
                 </div>
             </div>

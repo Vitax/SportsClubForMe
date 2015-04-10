@@ -99,6 +99,13 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     //add marker to the map
     var initMarks = function () {
         setAllMap(null);
+        var deltaLat = 0;
+        var deltaLng = 0;
+
+        angular.forEach($scope.clubResults, function (value, key) {
+            deltaLat += value.position.lat;
+            deltaLng += value.position.lng;
+        });
 
         angular.forEach($scope.clubResults, function (value, key) {
             var clubLatLng = new google.maps.LatLng(value.position.lat,

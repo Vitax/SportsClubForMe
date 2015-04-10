@@ -1,6 +1,11 @@
-input {
-    width: 100%;
+input.searchfield {
+    width: 50%;
     height: 30px;
+
+    position: absolute;
+    top: 15%;
+    right: 25%;
+    left: 25%;
 }
 
 body {
@@ -15,8 +20,8 @@ div.container {
     padding-right: 25%;
 }
 
-div.clubs{
-    width: 22%;
+div.clubs {
+    width: 24%;
     height: 75%;
 
     overflow-y: auto;
