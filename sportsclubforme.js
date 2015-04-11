@@ -93,12 +93,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         '<div id="content">' +
         '<div id="siteNotice">' +
         '</div>' +
-        '<h1 id="firstHeading">Stuff</h1>'
-
-
-    $scope.infoWindow = new google.maps.InfoWindow({
-        content: contentString
-    });
+        '<h1 id="firstHeading">Stuff</h1>';
 
     var markers = [];
     var clearMap = function (map) {
@@ -109,25 +104,38 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     }
 
     var setMapCenter = function (results) {
-        var counter = 0;
+        var numberOfValues = 0;
 
         var deltaLat = 0;
         var deltaLng = 0;
         var deltaLatLng = 0;
 
         angular.forEach(results, function (value, key) {
-            counter++;
+            numberOfValues++;
             deltaLat += value.position.lat;
             deltaLng += value.position.lng;
         });
 
         if (results != [] && deltaLat != 0 && deltaLng != 0) {
-            deltaLatLng = new google.maps.LatLng((deltaLat / counter), (deltaLng / counter));
+            deltaLatLng = new google.maps.LatLng((deltaLat / numberOfValues), (deltaLng / numberOfValues));
         } else {
             deltaLatLng = berlinLatLng;
         }
 
         map.panTo(deltaLatLng);
+    }
+
+    var addInfoWindow = function (markers, string) {
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: string
+        });
+
+        for (var i = 0; i < markers.length; i++) {
+            google.maps.event.addListener(markers[i], 'click', function () {
+                infoWindow.open(map, markers[i]);
+            });
+        }
     }
 
     //add marker to the map
@@ -146,6 +154,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         });
 
         setMapCenter($scope.clubResults);
+        addInfoWindow(markers, contentString);
     }
 }]);
 
