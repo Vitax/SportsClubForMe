@@ -86,14 +86,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         zoom: zoomValue
     };
 
-    console.log('zoomvalue: ' + zoomValue);
     var map = new google.maps.Map(mapCanvas, mapOptions);
-
-    var contentString =
-        '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading">Stuff</h1>';
 
     var markers = [];
     var clearMap = function (map) {
@@ -110,7 +103,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         var deltaLng = 0;
         var deltaLatLng = 0;
 
-        angular.forEach(results, function (value, key) {
+        angular.forEach(results, function (value) {
             numberOfValues++;
             deltaLat += value.position.lat;
             deltaLng += value.position.lng;
@@ -125,36 +118,40 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         map.panTo(deltaLatLng);
     }
 
-    var addInfoWindow = function (markers, string) {
-
-        var infoWindow = new google.maps.InfoWindow({
-            content: string
-        });
-
-        for (var i = 0; i < markers.length; i++) {
-            google.maps.event.addListener(markers[i], 'click', function () {
-                infoWindow.open(map, markers[i]);
-            });
-        }
-    }
 
     //add marker to the map
     var initMarks = function () {
+        var marker = new google.maps.Marker();
+
         clearMap(null);
+        angular.forEach($scope.clubResults, function (value) {
+            var clubLatLng = new google.maps.LatLng(value.position.lat, value.position.lng);
 
-        angular.forEach($scope.clubResults, function (value, key) {
-            var clubLatLng = new google.maps.LatLng(value.position.lat,
-                value.position.lng);
+            var content =
+                '<h1>' + value.clubname + '</h1> <br>' +
+                '<em>' + 'Anschrift : ' + value.address + ', ' + '</em>' + '<em> ' + value.postcode + '</em> <br>' +
+                '<em> ' + 'Telefon : ' + value.phonenumber + '</em> </br> ' +
+                '<em> ' + 'EMail-Addresse : ' + value.mailaddress + '</em> <br> ' +
+                '<em> ' + 'Webseite : ' + value.webpage + '</em> ';
 
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: clubLatLng,
-                map: map
+                map: map,
+                title: value.clubname
             });
             markers.push(marker);
+
+
+            marker['infoWindow'] = new google.maps.InfoWindow({
+                content: content
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                this['infoWindow'].open(map, this);
+            });
         });
 
         setMapCenter($scope.clubResults);
-        addInfoWindow(markers, contentString);
     }
 }]);
 

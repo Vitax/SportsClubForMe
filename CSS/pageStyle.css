@@ -27,10 +27,10 @@ div.clubs {
     overflow-y: auto;
 
     position: absolute;
-    top: auto;
+    top: 20%;
     bottom: auto;
     right: auto;
-    left: 0;
+    left: 0%;
 }
 
 div.map {
