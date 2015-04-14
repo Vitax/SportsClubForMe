@@ -1,3 +1,7 @@
+body {
+    background-color: #d5d5d5;
+}
+
 input.searchfield {
     width: 50%;
     height: 30px;
@@ -6,10 +10,6 @@ input.searchfield {
     top: 15%;
     right: 25%;
     left: 25%;
-}
-
-body {
-    background-color: #d5d5d5;
 }
 
 div.container {
@@ -41,6 +41,15 @@ div.map {
     right: 25%;
     left: 25%;
     top: 20%;
+}
+
+select.options {
+    height: 30px;
+
+    position: absolute;
+    top: 15%;
+    right: 75%;
+    left: auto;
 }
 
 #mapCanvas {

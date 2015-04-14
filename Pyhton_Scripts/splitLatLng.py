@@ -16,7 +16,7 @@ for club in data["clubdata"]:
     lat = float(lat)
     lng = float(lng)
 
-    club['latlng'] = {
+    club['position'] = {
         'lat': lat,
         'lng': lng
     }
