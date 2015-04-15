@@ -38,7 +38,7 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
 
     $http({
         method: 'GET',
-        url: "assets/data/SportClubForMe_Working.json"
+        url: "assets/data/SportClubForMe_Districts.json"
     }).success(function (data) {
         $scope.data = data;
     }).error(function (error) {
@@ -94,65 +94,11 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
             return;
         }
 
-        var plz = 0;
-
-        if (s == 'neukoelln') {
-            for (var i = 0; i < neukoelln.length; i++) {
-                plz = neukoelln[i];
-            }
-        }
-
         $scope.keys = {};
         $scope.data.clubdata.forEach(function (entry) {
-            //switch (entry) {
-            //    case s == 'charlottenburg' || s == 'wilmersdorf' && entry.postcode.indexOf(charlottenburg_wilmersdorf[i]) > -1:
-            //        for (var i = 0; i < charlottenburg_wilmersdorf.length; i++) {
-            //            $scope.keys[entry.postcode] = entry;
-            //        }
-            //    case s == 'kreuzberg' || s == 'friedrichshain' && entry.postcode.indexOf(friedrichshain_kreuzberg[i]) > -1:
-            //        for (var i = 0; i < friedrichshain_kreuzberg.length; i++) {
-            //            $scope.keys[entry.postcode] = entry;
-            //        }
-            //}
-
-            if (s == 'charlottenburg' || s == 'wilmersdorf') {
-                for (var i = 0; i < charlottenburg_wilmersdorf.length; i++) {
-                    if (entry.postcode.indexOf(charlottenburg_wilmersdorf[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (s == 'kreuzberg' || s == 'friedrichshain') {
-                for (var i = 0; i < friedrichshain_kreuzberg.length; i++) {
-                    if (entry.postcode.indexOf(friedrichshain_kreuzberg[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (s == 'lichtenberg') {
-                for (var i = 0; i < lichtenberg.length; i++) {
-                    if (entry.postcode.indexOf(lichtenberg[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (s == 'mitte') {
-                for (var i = 0; i < mitte.length; i++) {
-                    if (entry.postcode.indexOf(mitte[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (s == 'marzahn' || s == 'hellersdorf') {
-                for (var i = 0; i < marzahn_hellersdorf.length; i++) {
-                    if (entry.postcode.indexOf(marzahn_hellersdorf[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (s == 'neukoelln' || s == 'neuk\u00f6lln') {
-                for (var i = 0; i < neukoelln.length; i++) {
-                    if (entry.postcode.indexOf(neukoelln[i]) > -1) {
-                        $scope.keys[entry.postcode] = entry;
-                    }
-                }
-            } else if (entry.clubname.toLowerCase().indexOf(s) > -1 || entry.postcode.indexOf(s) > -1) {
-                $scope.keys[entry.postcode] = entry;
+            if (entry.clubname.toLowerCase().indexOf(s) > -1 || entry.postcode.toLowerCase().indexOf(s) > -1
+                || entry.disctricts.toLowerCase().indexOf(s) > -1) {
+                $scope.keys[entry.clubname] = entry;
             }
         });
 

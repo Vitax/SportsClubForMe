@@ -18,5 +18,5 @@ for club in data["clubdata"]:
 
 json_string = json.dumps(data)
 
-with open("assets/data/SportClubsForMe_LatLng_Split2.json", "w") as output:
+with open("assets/data/SportClubForMe_LatLng_Split2.json", "w") as output:
     output.write(json_string)
