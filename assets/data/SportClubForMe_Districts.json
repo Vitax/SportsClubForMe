@@ -2101,7 +2101,7 @@
       "phonenumber": "21307136"
     },
     {
-      "district": "Friedrichshain-Kreuzberg",
+      "district": "Reinickendorf",
       "webpage": "posenkieker-berlin.de",
       "clublink": "Anglerverein Posenkieker 1912",
       "postcode": "13507 Berlin",
@@ -8471,7 +8471,7 @@
       "phonenumber": "84114944"
     },
     {
-      "district": "Mitte",
+      "district": "Reinickendorf",
       "webpage": "www.frueh-auf-tegel,de",
       "clublink": "Sport und Anglerverein Fr\u00fch-Auf Tegel e. V.",
       "postcode": "13507 Berlin",
@@ -10038,6 +10038,7 @@
       "phonenumber": "8016426"
     },
     {
+      "district": "Spandau",
       "webpage": "",
       "clublink": "Sportgemeinschaft an der Freien Universit\u00e4t Berlin",
       "postcode": "14612 Berlin",
@@ -10149,6 +10150,7 @@
       "phonenumber": "50 38 08 13"
     },
     {
+      "district": "Charlottenburg-Wilmersdorf",
       "webpage": "bluechips-berlin.de",
       "clublink": "Bluechips Berlin",
       "postcode": "12205 Berlin",
@@ -11422,6 +11424,7 @@
       "phonenumber": "65489544"
     },
     {
+      "district": "Tempelhof-Sch\u00f6neberg",
       "webpage": "www.karate-club-oyama-berlin.de",
       "clublink": "Karate-Club Oyama Berlin e. V.",
       "postcode": "14167 Berlin",
@@ -12541,6 +12544,7 @@
       "phonenumber": "833 35 74"
     },
     {
+      "district": "Treptow-K\u00f6penick",
       "webpage": "www.schuetzengilde-koepenick.de",
       "clublink": "Sch\u00fctzengilde zu K\u00f6penick e. V.",
       "postcode": "12489 Berlin",
@@ -12554,6 +12558,7 @@
       "phonenumber": "030 5350010"
     },
     {
+      "district": "Steglitz-Zehlendorf",
       "webpage": "www.helios-sport.de",
       "clublink": "Helios - Verein f\u00fcr Gesundheit und Sport Berlin e. V.",
       "postcode": "14193 Berlin",
@@ -12861,6 +12866,7 @@
       "phonenumber": "6641666"
     },
     {
+      "district": "Spandau",
       "webpage": "www.spandauer-ttc.de",
       "clublink": "Spandauer Tisch-Tennis Club e.V.",
       "postcode": "13587 Berlin",
@@ -14918,6 +14924,7 @@
       "phonenumber": ""
     },
     {
+      "district": "Marzahn-Hellersdorf",
       "webpage": "http://www.qwankido-hellersdorf.de/",
       "clublink": "Qwan Ki Do - Kampfkunstverein Hellersdorf e. V.",
       "postcode": "12591 Berlin",
@@ -21147,11 +21154,11 @@
       "phonenumber": "4113020"
     },
     {
-      "district": "None",
+      "district": "Reinickendorf",
       "webpage": "www.sc-freia.de",
       "clublink": "Segel-Club Freia e. V.",
       "postcode": "13507 Berlin",
-      "address": "Bernauer Stra\u00dfe 152 a/Uferweg ",
+      "address": "Bernauer Stra\u00dfe 152a ",
       "position": {
         "lat": 52.5737991,
         "lng": 13.2603197

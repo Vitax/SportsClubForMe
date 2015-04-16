@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 
 <html>
-<head>
+    <head>
 
-    <!-- scripts and global css -->
-    <link rel="stylesheet" href="CSS/pageStyle.css">
+        <!-- scripts and global css -->
+        <link rel="stylesheet" href="CSS/pageStyle.css">
 
-    <script type="text/javascript" src="components/angular/angular.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
-    <script type="text/javascript" src="sportsclubforme.js"></script>
-    <script type="text/javascript" src="map_widget/map.js"></script>
+        <script type="text/javascript" src="components/angular/angular.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
+        <script type="text/javascript" src="sportsclubforme.js"></script>
+        <script type="text/javascript" src="map_widget/map.js"></script>
 
-    <title>A Sports Club for me</title>
+        <title>A Sports Club for me</title>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-<div ng-app="app">
-    <h1 style="font-size:300%;text-align:center"> A Sport Club for me </h1>
+        <div ng-app="app">
+            <h1 style="font-size:300%;text-align:center"> A Sport Club for me </h1>
 
-    <div class="container" ng-controller="DataCtrl">
-        <panel>
-            <!--SearchOptions:-->
-            <!--<select ng-model="searchOptions" ng-options="optionValue.option for value in optionValue" class="options">-->
-            <!--<option value="">{{}}</option>-->
-            <!--</select> <br>-->
+            <div class="container" ng-controller="DataCtrl">
+                <panel>
+                    <!--SearchOptions:-->
+                    <!--<select ng-model="searchOptions" ng-options="optionValue.option for value in optionValue" class="options">-->
+                    <!--<option value="">{{}}</option>-->
+                    <!--</select> <br>-->
 
-            <input class="searchfield" type="search" ng-model="searchCriteria" ng-change="searchClub()"
-                   placeholder="Geben sie hier ihr Suchbegriff ein ....">
+                    <input class="searchfield" type="search" ng-model="searchCriteria" ng-change="searchClub()"
+                           placeholder="Geben sie hier ihr Suchbegriff ein ....">
 
-        </panel>
+                </panel>
 
-        <div class="clubs">
-            <!-- iterate over the keys object to get the values out of it-->
-            <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" ng-click="">
-                <Span style=" font-size: 1.2em">{{value.clubname}}</Span> <br>
-                <em>{{'Address: ' + value.address }}</em> <br>
-                <em>{{'Postcode: ' + value.postcode }}</em> <br>
-                <em>{{'Phonenumber: ' + value.phonenumber }}</em> <br>
-                <em>{{'Webpage: ' +value.webpage}}</em>
-                <hr>
-            </ul>
+                <div class="clubs">
+                    <!-- iterate over the keys object to get the values out of it-->
+                    <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" ng-click="">
+                        <Span style=" font-size: 1.2em">{{value.clubname}}</Span> <br>
+                        <em>{{'Address: ' + value.address }}</em> <br>
+                        <em>{{'Postcode: ' + value.postcode }}</em> <br>
+                        <em>{{'Phonenumber: ' + value.phonenumber }}</em> <br>
+                        <em>{{'Webpage: ' +value.webpage}}</em>
+                        <hr>
+                    </ul>
+                </div>
+            </div>
+
+            <div ng-controller="MapCtrl">
+                <div class="map" id="mapCanvas"></div>
+            </div>
         </div>
-    </div>
 
-    <div ng-controller="MapCtrl">
-        <div class="map" id="mapCanvas"></div>
-    </div>
-</div>
-
-</body>
+    </body>
 </html>
