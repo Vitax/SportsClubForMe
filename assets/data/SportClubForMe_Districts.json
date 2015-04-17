@@ -660,8 +660,8 @@
     },
     {
       "district": "Neuk\u00f6lln",
-      "webpage": "",
-      "clublink": "Aufschlag von unten e. V.",
+      "webpage": "www.aufschlagvonunten.de",
+      "clublink": "Volleyball-Aufschlag von unten e. V.",
       "postcode": "12059 Berlin",
       "address": "Ulsterstra\u00dfe 3 ",
       "position": {
@@ -9256,7 +9256,7 @@
     },
     {
       "district": "Neuk\u00f6lln",
-      "webpage": "",
+      "webpage": "http://www.rudowerkickers.de/",
       "clublink": "FSG Rudower Kickers 1984",
       "postcode": "12351 Berlin",
       "address": "Kormoranweg 20 ",
@@ -13118,7 +13118,7 @@
       "phonenumber": "300905-95"
     },
     {
-      "district": "Friedrichshain-Kreuzberg",
+      "district": "Spandau",
       "webpage": "www.sav-gut-biss.de",
       "clublink": "Sport- und Anglerverein Gut-Bi\u00df e. V. Berlin-Tegel",
       "postcode": "13507 Berlin",
@@ -14322,7 +14322,7 @@
       "phonenumber": "34702570"
     },
     {
-      "district": "None",
+      "district": "Spandau",
       "webpage": "www.neukoellner-sportfreunde.de",
       "clublink": "Neuk\u00f6llner Sportfreunde 1907 e. V.",
       "postcode": "14612 Berlin",
@@ -15330,7 +15330,7 @@
       "phonenumber": "90296 5010"
     },
     {
-      "district": "Pankow",
+      "district": "Spandau",
       "webpage": "www.ftc-berlin.de",
       "clublink": "Floorball Team Charlottenburg e. V.",
       "postcode": "13629 Berlin",
@@ -22834,7 +22834,7 @@
       "phonenumber": "4815086"
     },
     {
-      "district": "Reinickendorf",
+      "district": "Steglitz-Zehlendorf",
       "webpage": "www.skiclubberlin.de",
       "clublink": "Ski-Club Berlin e. V.",
       "postcode": "14163 Berlin",
@@ -25046,7 +25046,7 @@
       "phonenumber": "683202220"
     },
     {
-      "district": "Reinickendorf",
+      "district": "Charlottenburg-Wilmersdorf",
       "webpage": "www.tsv58.de",
       "clublink": "Charlottenburger Turn- und Sportverein von 1858 e. V.",
       "postcode": "10585 Berlin",
@@ -25256,7 +25256,7 @@
       "phonenumber": "334 29 21"
     },
     {
-      "district": "Pankow",
+      "district": "TempelhofTempelhof-Sch\u00f6neberg",
       "webpage": "www.bsg-kaelte-gastro-Technik.de",
       "clublink": "BSG K\u00e4lte-Gastro-Technik Berlin",
       "postcode": "12529 Berlin",
@@ -25284,7 +25284,7 @@
       "phonenumber": "8867380"
     },
     {
-      "district": "Mitte",
+      "district": "Reinickendorf",
       "webpage": "",
       "clublink": "Angler-Verein Insulaner Neuk\u00f6lln e. V.",
       "postcode": "13349 Berlin",
@@ -25998,7 +25998,7 @@
       "phonenumber": "76703467"
     },
     {
-      "district": "Reinickendorf",
+      "district": "Mitte",
       "webpage": "",
       "clublink": "SG Gasturbinenwerk Berlin e.V.",
       "postcode": "10553 Berlin",
@@ -27049,7 +27049,7 @@
     },
     {
       "district": "Neuk\u00f6lln",
-      "webpage": "",
+      "webpage": "www.1fc-neukoelln-1895.de ",
       "clublink": "1. Fu\u00dfballclub Neuk\u00f6lln 1895 e. V.",
       "postcode": "12347 Berlin",
       "address": "Britzer Damm 83 ",
@@ -27059,7 +27059,7 @@
       },
       "mailaddress": "fcn1895@freenet.de",
       "clubname": "1. Fu\u00dfballclub Neuk\u00f6lln 1895 e. V.",
-      "phonenumber": ""
+      "phonenumber": "0160 4429764"
     },
     {
       "district": "Friedrichshain-Kreuzberg",
@@ -31192,7 +31192,7 @@
       "phonenumber": "4112086"
     },
     {
-      "district": "Reinickendorf",
+      "district": "Spandau",
       "webpage": "vks-ev.de",
       "clublink": "Verein der Kegler von Spandau e. V.",
       "postcode": "14612 Berlin",

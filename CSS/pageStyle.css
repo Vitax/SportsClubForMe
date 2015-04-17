@@ -1,5 +1,10 @@
 body {
-    background-color: #d5d5d5;
+    background-color: #e8e8e8;
+}
+
+ul:hover {
+    cursor: pointer;
+    background-color: #babab4;
 }
 
 input.searchfield {
@@ -13,24 +18,24 @@ input.searchfield {
 }
 
 div.container {
-    width: 50%;
-    height: 100%;
+    width: auto;
+    height: auto;
 
     padding-left: 25%;
     padding-right: 25%;
 }
 
 div.clubs {
-    width: 24%;
+    width: 22%;
     height: 75%;
 
     overflow-y: auto;
-
+    padding-right: 1%;
     position: absolute;
     top: 20%;
     bottom: auto;
     right: auto;
-    left: 0%;
+    left: 1%;
 }
 
 div.map {
