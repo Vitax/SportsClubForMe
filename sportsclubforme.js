@@ -28,13 +28,6 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
     $scope.searchCriteria = null;
     $scope.data = null;
     $scope.keys = {};
-    $scope.optionValue =
-    {
-        option: 'Vereinssuche'
-    },
-    {
-        option: 'Umgebungssuche'
-    };
 
     $http({
         method: 'GET',
@@ -46,40 +39,20 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
     });
 
     // function to check not useful data
-    var checkData = function () {
-        $scope.data.clubdata.forEach(function (entry) {
-            if (entry.postcode == undefined || entry.address == undefined || entry.phonenumber == undefined
-                || entry.mailaddress == undefined || entry.webpage == undefined || entry.latlng == undefined
-                || entry.district == undefined) {
-                console.log('Clubname: ' + entry.clubname);
-                console.log('Clublink: ' + entry.clublink);
-            }
-        });
-    }
+    /*var checkData = function () {
+     $scope.data.clubdata.forEach(function (entry) {
+     if (entry.postcode == undefined || entry.address == undefined || entry.phonenumber == undefined
+     || entry.mailaddress == undefined || entry.webpage == undefined || entry.latlng == undefined
+     || entry.district == undefined) {
+     console.log('Clubname: ' + entry.clubname);
+     console.log('Clublink: ' + entry.clublink);
+     }
+     });
+     }*/
 
     $scope.clickedObject = function (clickedObject) {
         geoDataService.setObject(clickedObject);
     }
-
-    // String comparison tryouts
-    //var stringComparison = function (a, b) {
-    //    var cost = 0;
-    //    if (a == b) return;
-    //    var vectorA = [a.length];
-    //    var vectorB = [b.length];
-    //
-    //    for (var i = 0; i < vectorA.length; i++) {
-    //        for (var j = 0; j < vectorB.length;) {
-    //            if (vectorA[i] != vectorB[j] && vectorA[i + 1] != vectorB[j]) {
-    //                cost += 1;
-    //            } else if (vectorA[i] == vectorB[j]) {
-    //                j++;
-    //            }
-    //        }
-    //    }
-    //
-    //    return cost;
-    //}
 
     $scope.searchClub = function () {
         var s = $scope.searchCriteria.toLowerCase();
@@ -158,43 +131,11 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         map.panTo(deltaLatLng);
     }
 
-    $scope.reference = {};
-    $scope.openMarkerForObject = function () {
-        //var objectLatLng = new google.maps.LatLng($scope.clubObject.position.lat, $scope.clubObject.position.lng);
-        //
-        //// content of each infoWindow
-        //var content =
-        //    '<h1>' + $scope.clubObject.clubname + '</h1> <br>' +
-        //    '<em>' + 'Anschrift : ' + $scope.clubObject.address + ', ' + '</em>' + '<em> ' + $scope.clubObject.postcode + '</em> <br>' +
-        //    '<em>' + 'Telefon : ' + $scope.clubObject.phonenumber + '</em> </br> ' +
-        //    '<em>' + 'EMail-Addresse : ' + $scope.clubObject.mailaddress + '</em> <br> ' +
-        //    '<em>' + 'Webseite : ' + $scope.clubObject.webpage + '</em>';
-        //
-        //
-        //// create the infoWindow for the marker with its content
-        //var infoWindow = new google.maps.InfoWindow({
-        //    content: content
-        //});
-        //
-        //var marker = new google.maps.Marker({
-        //    position: objectLatLng,
-        //    map: map
-        //});
-        //
-        //// open the marker with its info
-        //google.maps.event.addListener(marker, 'click', function () {
-        //    infoWindow.open(map, marker);
-        //});
-
-        angular.forEach($scope.reference, function (value) {
-            console.log('length ' + $scope.reference.length);
-            console.log('club ' + $scope.reference[value]);
-            console.log('marker ' + value);
-        });
-    }
+    $scope.valueMarker = {};
 
     //add marker to the map
     var initMarks = function () {
+        // boolean to check if a infoWindow is open
         var openInfoWindow = false;
 
         clearMap(null);
@@ -203,12 +144,13 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
             // content of each infoWindow
             var content =
-                '<h1>' + value.clubname + '</h1> <br>' +
+                ' <p style=" font-size: 1.2em"> <strong>' + value.clubname + '</p> </strong> <br>' +
                 '<em>' + 'Anschrift : ' + value.address + ', ' + '</em>' + '<em> ' + value.postcode + '</em> <br>' +
                 '<em>' + 'Telefon : ' + value.phonenumber + '</em> </br> ' +
                 '<em>' + 'EMail-Addresse : ' + value.mailaddress + '</em> <br> ' +
                 '<em>' + 'Webseite : ' + value.webpage + '</em>';
 
+            // single marker with its content
             marker = new google.maps.Marker({
                 position: clubLatLng,
                 map: map,
@@ -220,22 +162,37 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
                 content: content
             });
 
+            // push all the marker into the markers array to handle them
             markers.push(marker);
-            $scope.reference[value] = marker;
+
+            // create a key value array containing the club name as a key and the marker as a value
+            $scope.valueMarker[value.clubname] = marker;
 
             // open the marker with its info
             google.maps.event.addListener(marker, 'click', function () {
                 if (openInfoWindow) {
                     openInfoWindow.close();
+
                 }
 
                 openInfoWindow = this['infoWindow'];
-                //noinspection JSCheckFunctionSignatures
                 this['infoWindow'].open(map, this);
             });
         });
 
         setMapCenter($scope.clubResults);
+    }
+
+    $scope.openMarkerForObject = function () {
+        //
+        angular.forEach($scope.valueMarker, function (value, key) {
+            if (key == $scope.clubObject.clubname) {
+                console.log('key: ' + key);
+
+                // trigger the marker
+                google.maps.event.trigger(value, 'click');
+            }
+        });
     }
 }]);
 
