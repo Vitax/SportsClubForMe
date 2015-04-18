@@ -158,38 +158,44 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         map.panTo(deltaLatLng);
     }
 
+    $scope.reference = {};
     $scope.openMarkerForObject = function () {
-        var objectLatLng = new google.maps.LatLng($scope.clubObject.position.lat, $scope.clubObject.position.lng);
+        //var objectLatLng = new google.maps.LatLng($scope.clubObject.position.lat, $scope.clubObject.position.lng);
+        //
+        //// content of each infoWindow
+        //var content =
+        //    '<h1>' + $scope.clubObject.clubname + '</h1> <br>' +
+        //    '<em>' + 'Anschrift : ' + $scope.clubObject.address + ', ' + '</em>' + '<em> ' + $scope.clubObject.postcode + '</em> <br>' +
+        //    '<em>' + 'Telefon : ' + $scope.clubObject.phonenumber + '</em> </br> ' +
+        //    '<em>' + 'EMail-Addresse : ' + $scope.clubObject.mailaddress + '</em> <br> ' +
+        //    '<em>' + 'Webseite : ' + $scope.clubObject.webpage + '</em>';
+        //
+        //
+        //// create the infoWindow for the marker with its content
+        //var infoWindow = new google.maps.InfoWindow({
+        //    content: content
+        //});
+        //
+        //var marker = new google.maps.Marker({
+        //    position: objectLatLng,
+        //    map: map
+        //});
+        //
+        //// open the marker with its info
+        //google.maps.event.addListener(marker, 'click', function () {
+        //    infoWindow.open(map, marker);
+        //});
 
-        // content of each infoWindow
-        var content =
-            '<h1>' + $scope.clubObject.clubname + '</h1> <br>' +
-            '<em>' + 'Anschrift : ' + $scope.clubObject.address + ', ' + '</em>' + '<em> ' + $scope.clubObject.postcode + '</em> <br>' +
-            '<em>' + 'Telefon : ' + $scope.clubObject.phonenumber + '</em> </br> ' +
-            '<em>' + 'EMail-Addresse : ' + $scope.clubObject.mailaddress + '</em> <br> ' +
-            '<em>' + 'Webseite : ' + $scope.clubObject.webpage + '</em>';
-
-
-        // create the infoWindow for the marker with its content
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
+        angular.forEach($scope.reference, function (value) {
+            console.log('length ' + $scope.reference.length);
+            console.log('club ' + $scope.reference[value]);
+            console.log('marker ' + value);
         });
-
-        var marker = new google.maps.Marker({
-            position: objectLatLng,
-            map: map
-        });
-
-        // open the marker with its info
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open(map, marker);
-        });
-
-        google.maps.event.trigger(marker, 'click');
     }
 
     //add marker to the map
     var initMarks = function () {
+        var openInfoWindow = false;
 
         clearMap(null);
         angular.forEach($scope.clubResults, function (value) {
@@ -209,15 +215,22 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
                 title: value.clubname
             });
 
-            markers.push(marker);
-
             // create the infoWindow for the marker with its content
             marker['infoWindow'] = new google.maps.InfoWindow({
                 content: content
             });
 
+            markers.push(marker);
+            $scope.reference[value] = marker;
+
             // open the marker with its info
             google.maps.event.addListener(marker, 'click', function () {
+                if (openInfoWindow) {
+                    openInfoWindow.close();
+                }
+
+                openInfoWindow = this['infoWindow'];
+                //noinspection JSCheckFunctionSignatures
                 this['infoWindow'].open(map, this);
             });
         });
