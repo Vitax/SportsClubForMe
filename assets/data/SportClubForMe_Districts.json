@@ -1949,20 +1949,6 @@
     {
       "district": "None",
       "webpage": "",
-      "clublink": "FMC Neuhardenberg e. V.",
-      "postcode": "15320 Neuhardenberg",
-      "address": "Friedrich-Engels-Stra\u00dfe 15 a",
-      "position": {
-        "lat": 52.5919304,
-        "lng": 14.23633
-      },
-      "mailaddress": "holger.au@t-online.de",
-      "clubname": "FMC Neuhardenberg e. V.",
-      "phonenumber": "0177/ 2054180"
-    },
-    {
-      "district": "None",
-      "webpage": "",
       "clublink": "FC Akzent Berlin",
       "postcode": "10177 Berlin",
       "address": "Zimmerstra\u00dfe 69",
@@ -15670,10 +15656,10 @@
       "webpage": "www.karate-zehlendorf.de",
       "clublink": "1. Zehlendorfer Karate Verein e. V.",
       "postcode": "14943 Berlin",
-      "address": "Zur Sch\u00e4ferei 1",
+      "address": "Hüttenweg 40",
       "position": {
-        "lat": 52.0935593,
-        "lng": 13.2039204
+        "lat": 52.454981,
+        "lng": 13.269714
       },
       "mailaddress": "zkv.tiger@t-online.de",
       "clubname": "1. Zehlendorfer Karate Verein e. V.",
