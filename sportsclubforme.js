@@ -28,7 +28,7 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
     $scope.searchCriteria = null;
     $scope.data = null;
     $scope.keys = {};
-
+    var contains = false;
     $http({
         method: 'GET',
         url: "assets/data/SportClubForMe_Districts.json"
@@ -58,18 +58,24 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
         var s = $scope.searchCriteria.toLowerCase();
 
         if (s == '') {
-            geoDataService.setClubData([]);
+            geoDataService.setClubData(null);
             return;
         }
 
         $scope.keys = {};
+        contains = false;
         $scope.data.clubdata.forEach(function (entry) {
                 if (entry.clubname.toLowerCase().indexOf(s) > -1 || entry.district.toLowerCase().indexOf(s) > -1 || entry.postcode.toLowerCase().indexOf(s) > -1) {
                     $scope.keys[entry.clubname] = entry;
+                    contains = true;
                 }
             }
         );
-        geoDataService.setClubData($scope.keys);
+        if(contains == true) {
+            geoDataService.setClubData($scope.keys);
+        } else{
+            geoDataService.setClubData(null);
+        }
     }
 }]);
 
@@ -79,59 +85,58 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     $scope.$on('onUpdate', function () {
         $scope.clubResults = geoDataService.getClubData();
 
-        initMarks();
+        if ($scope.clubResults == null) {
+            clearMap(null);
+            resetMap();
+        } else {
+            initMarks();
+        }
     });
 
     $scope.$on('objectClicked', function () {
         $scope.clubObject = geoDataService.getObject();
 
-        $scope.openMarkerForObject();
+        $scope.openMarkerForObject(valueMarker);
     });
 
     // variables
     var berlinLatLng = new google.maps.LatLng(52.50, 13.34);
-    var currentLatLng = null;
     var mapCanvas = document.getElementById('mapCanvas');
     var marker = new google.maps.Marker();
     var markers = [];
+
+    // variable with the initial map options
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
-        zoom: 10
+        zoom: 9
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
-    var clearMap = function (map) {
+    var clearMap = function (markerOnMap) {
         for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
+            markers[i].setMap(markerOnMap);
         }
         markers = [];
     }
 
     // change the position of the map when finding for objects
-    var setMapCenter = function (results) {
-        var numberOfValues = 0;
+    var changeBounds = function (results) {
+        var latLngBounds = new google.maps.LatLngBounds();
 
-        var deltaLat = 0;
-        var deltaLng = 0;
-        var deltaLatLng = 0;
-
-        angular.forEach(results, function (value) {
-            numberOfValues++;
-            deltaLat += value.position.lat;
-            deltaLng += value.position.lng;
-        });
-
-        if (results != [] && deltaLat != 0 && deltaLng != 0) {
-            deltaLatLng = new google.maps.LatLng((deltaLat / numberOfValues), (deltaLng / numberOfValues));
-        } else {
-            deltaLatLng = berlinLatLng;
+        for (var i = 0; i < results.length; i++) {
+            latLngBounds.extend(results[i].getPosition());
         }
 
-        map.panTo(deltaLatLng);
+        map.fitBounds(latLngBounds);
     }
 
-    $scope.valueMarker = {};
+    var valueMarker = {};
+
+    var resetMap = function () {
+        map.panTo(berlinLatLng);
+        map.setZoom(9);
+    }
 
     //add marker to the map
     var initMarks = function () {
@@ -139,12 +144,13 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         var openInfoWindow = false;
 
         clearMap(null);
+
         angular.forEach($scope.clubResults, function (value) {
             var clubLatLng = new google.maps.LatLng(value.position.lat, value.position.lng);
 
             // content of each infoWindow
             var content =
-                ' <p style=" font-size: 1.2em"> <strong>' + value.clubname + '</p> </strong> <br>' +
+                ' <p style=" font-size: 1.2em"> <strong>' + value.clubname + '</p> </strong>' +
                 '<em>' + 'Anschrift : ' + value.address + ', ' + '</em>' + '<em> ' + value.postcode + '</em> <br>' +
                 '<em>' + 'Telefon : ' + value.phonenumber + '</em> </br> ' +
                 '<em>' + 'EMail-Addresse : ' + value.mailaddress + '</em> <br> ' +
@@ -166,7 +172,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
             markers.push(marker);
 
             // create a key value array containing the club name as a key and the marker as a value
-            $scope.valueMarker[value.clubname] = marker;
+            valueMarker[value.clubname] = marker;
 
             // open the marker with its info
             google.maps.event.addListener(marker, 'click', function () {
@@ -175,21 +181,19 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
                 }
 
-                openInfoWindow = this['infoWindow'];
                 this['infoWindow'].open(map, this);
+                // variable to see if a window is already open
+                openInfoWindow = this['infoWindow'];
             });
         });
 
-        setMapCenter($scope.clubResults);
+        changeBounds(markers);
     }
 
-    $scope.openMarkerForObject = function () {
-        //
-        angular.forEach($scope.valueMarker, function (value, key) {
+    $scope.openMarkerForObject = function (valueMarkerArray) {
+        angular.forEach(valueMarkerArray, function (value, key) {
             if (key == $scope.clubObject.clubname) {
-                console.log('key: ' + key);
-
-                // trigger the marker
+                // trigger the marker corresponding to the html object
                 google.maps.event.trigger(value, 'click');
             }
         });
