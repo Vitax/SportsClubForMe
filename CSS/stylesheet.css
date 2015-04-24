@@ -1,15 +1,17 @@
 body {
-    background-color: #e8e8e8;
+    background-color: #eeeeee;
 }
 
 ul:hover {
     cursor: pointer;
-    background-color: #babab4;
+    background-color: #eeeeee;
 }
 
 input.searchfield {
     width: 50%;
     height: 30px;
+
+    border-style: solid;
 
     position: absolute;
     top: 15%;
@@ -35,17 +37,29 @@ div.clubs {
     top: 20%;
     bottom: auto;
     right: auto;
-    left: 1%;
+    left: 0%;
+}
+
+div.mapContainer {
+    width: 60%;
+    height: 100%;
+
+    background-color: white;
+
+    position: absolute;
+    top: 0%;
+    right: 20%;
+    left: 20%;
 }
 
 div.map {
-    width: 50%;
-    height: 100%;
+    width: 90%;
+    height: 75%;
 
     position: absolute;
-    right: 25%;
-    left: 25%;
-    top: 20%;
+    top: 22%;
+    left: 5%;
+    right: 5%;
 }
 
 select.options {

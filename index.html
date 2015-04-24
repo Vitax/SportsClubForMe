@@ -4,7 +4,7 @@
     <head>
 
         <!-- scripts and global css -->
-        <link rel="stylesheet" href="CSS/pageStyle.css">
+        <link rel="stylesheet" href="CSS/stylesheet.css">
 
         <script type="text/javascript" src="components/angular/angular.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1Kld3uNHBxIscUTPguZ39osS61oVA9k"></script>
@@ -16,6 +16,10 @@
     </head>
 
     <body ng-app="app">
+
+        <div class="mapContainer">
+            <div ng-controller="MapCtrl" class="map" id="mapCanvas"></div>
+        </div>
 
         <h1 style="font-size:300%;text-align:center"> A Sport Club for me </h1>
 
@@ -35,20 +39,15 @@
                 <!-- iterate over the keys object to get the values out of it-->
                 <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" >
                     <div ng-click="clickedObject(value)">
-                        <Span style=" font-size: 1.1em">{{value.clubname}}</Span> <br>
-                        <em>{{'Address: ' + value.address }}</em> <br>
-                        <em>{{'Postcode: ' + value.postcode }}</em> <br>
-                        <em>{{'Phonenumber: ' + value.phonenumber }}</em> <br>
-                        <em>{{'Webpage: ' +value.webpage}}</em>
+                        <Span style="font-size: 1em">{{value.clubname}}</Span> <br>
+                        <em style="font-size: 0.9em">{{'Address: ' + value.address }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Postcode: ' + value.postcode }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Phonenumber: ' + value.phonenumber }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Webpage: ' +value.webpage}}</em>
                         <hr>
                     </div>
                 </ul>
             </div>
         </div>
-
-        <div ng-controller="MapCtrl">
-            <div class="map" id="mapCanvas"></div>
-        </div>
-
     </body>
 </html>
