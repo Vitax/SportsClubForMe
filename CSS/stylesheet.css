@@ -40,6 +40,7 @@ div.clubs {
     left: 0%;
 }
 
+/*
 div.mapContainer {
     width: 60%;
     height: 100%;
@@ -51,15 +52,16 @@ div.mapContainer {
     right: 20%;
     left: 20%;
 }
+*/
 
 div.map {
-    width: 90%;
+    width: 50%;
     height: 75%;
 
     position: absolute;
     top: 22%;
-    left: 5%;
-    right: 5%;
+    left: 25%;
+    right: 25%;
 }
 
 select.options {

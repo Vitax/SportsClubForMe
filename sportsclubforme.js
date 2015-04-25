@@ -71,9 +71,9 @@ app.controller('DataCtrl', ['$scope', '$http', 'geoDataService', function ($scop
                 }
             }
         );
-        if(contains == true) {
+        if (contains == true) {
             geoDataService.setClubData($scope.keys);
-        } else{
+        } else {
             geoDataService.setClubData(null);
         }
     }
@@ -109,7 +109,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
-        zoom: 9
+        zoom: 10
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
@@ -135,7 +135,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
     var resetMap = function () {
         map.panTo(berlinLatLng);
-        map.setZoom(9);
+        map.setZoom(10);
     }
 
     //add marker to the map
