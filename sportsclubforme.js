@@ -154,7 +154,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
                 '<em>' + 'Anschrift : ' + value.address + ', ' + '</em>' + '<em> ' + value.postcode + '</em> <br>' +
                 '<em>' + 'Telefon : ' + value.phonenumber + '</em> </br> ' +
                 '<em>' + 'EMail-Addresse : ' + value.mailaddress + '</em> <br> ' +
-                '<em>' + 'Webseite : ' + value.webpage + '</em>';
+                '<em>' +  'Webseite : ' + '<a href = "' + value.webpage + '">' + value.webpage + '</a>' + '</em>' ;
 
             // single marker with its content
             marker = new google.maps.Marker({
