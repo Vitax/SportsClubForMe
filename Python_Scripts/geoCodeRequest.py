@@ -11,12 +11,11 @@ for club in data["clubdata"]:
     try:
         g = geocoder.bing(club["address"] + ", " + club["postcode"])
         if (g.error == None):
-            club["lat"] = str(g.latlng.lat)
-            club["lng"] = str(g.latlng.lng)
+            club["latlng"] = str(g.latlng.lat) + ", " + str(g.latlng.lng)
     except:
         print(club)
 
 json_string = json.dumps(data)
 
-with open("assets/data/SportClubForMe_LatLng_Split2.json", "w") as output:
+with open("SportClubForMe_Geocodes.json", "w") as output:
     output.write(json_string)

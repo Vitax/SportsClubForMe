@@ -1,7 +1,7 @@
 import geocoder
 import json
 
-with open("SportClubForMe_Complete.json") as file:
+with open("SportClubForMe_Geocodes.json") as file:
     data = json.load(file)
 
 for club in data["clubdata"]:
@@ -21,9 +21,7 @@ for club in data["clubdata"]:
         'lng': lng
     }
 
-
-
 json_string = json.dumps(data)
 
-with open("newest.json", "w") as output:
+with open("SportClubForMe_LatLng.json", "w") as output:
     output.write(json_string)

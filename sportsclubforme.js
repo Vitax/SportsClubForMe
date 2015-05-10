@@ -178,10 +178,10 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
             google.maps.event.addListener(marker, 'click', function () {
                 if (openInfoWindow) {
                     openInfoWindow.close();
-
                 }
 
                 this['infoWindow'].open(map, this);
+
                 // variable to see if a window is already open
                 openInfoWindow = this['infoWindow'];
             });
@@ -199,4 +199,3 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
         });
     }
 }]);
-
