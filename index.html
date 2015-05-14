@@ -11,41 +11,34 @@
         <script type="text/javascript" src="sportsclubforme.js"></script>
         <script type="text/javascript" src="map_widget/map.js"></script>
 
-        <title>A Sports Club for me</title>
+        <title>A Sports Club for Me</title>
 
     </head>
 
     <body ng-app="app">
 
-        <!--<div class="mapContainer">-->
-        <div ng-controller="MapCtrl" class="map" id="mapCanvas"></div>
-        <!--</div>-->
-
-        <h1 style="font-size:300%;text-align:center"> A Sport Club for me </h1>
+    <div class = "headercontainer"><h1 style="font-size:300%;text-align:center"> A Sport Club for Me </h1> </div>
 
         <div class="container" ng-controller="DataCtrl">
             <panel>
-                <!--SearchOptions:-->
-                <!--<select ng-model="searchOptions" ng-options="optionValue.option for value in optionValue" class="options">-->
-                <!--<option value="">{{}}</option>-->
-                <!--</select> <br>-->
-
                 <input class="searchfield" type="search" ng-model="searchCriteria" ng-change="searchClub()"
                        placeholder="Geben sie hier ihr Suchbegriff ein ....">
-
             </panel>
+
+            <div ng-controller="MapCtrl" class="map" id="mapCanvas"></div>
 
             <div class="clubs">
                 <!-- iterate over the keys object to get the values out of it-->
-                <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" >
-                    <div ng-click="clickedObject(value)">
-                        <Span style="font-size: 1em">{{value.clubname}}</Span> <br>
-                        <em style="font-size: 0.9em">{{'Address: ' + value.address }}</em> <br>
-                        <em style="font-size: 0.9em">{{'Postcode: ' + value.postcode }}</em> <br>
-                        <em style="font-size: 0.9em">{{'Phonenumber: ' + value.phonenumber }}</em> <br>
-                        <em style="font-size: 0.9em">{{'Webpage: ' +value.webpage}}</em>
-                        <hr>
+                 <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" >
+                    <hr>
+                    <div class="clubdiv" ng-mouseover="clickedObject(value)" ng-mouseleave="">
+                        <Span style="font-size: 0.9em"> <strong> {{value.clubname}} </strong> </Span> <br>
+                        <em style="font-size: 0.8em">{{'Address: ' + value.address }}</em> <br>
+                        <em style="font-size: 0.8em">{{'Postcode: ' + value.postcode }}</em> <br>
+                        <em style="font-size: 0.8em">{{'Phonenumber: ' + value.phonenumber }}</em> <br>
+                        <em style="font-size: 0.8em">{{'Webpage: ' +value.webpage}}</em>
                     </div>
+                    <hr>
                 </ul>
             </div>
         </div>

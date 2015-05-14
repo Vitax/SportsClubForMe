@@ -1,10 +1,33 @@
 body {
+    background-color: aliceblue;
+    width: 100%;
+    height: 100%;
+    color: #444;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+}
+
+div.clubdiv:hover {
+    cursor: pointer;
     background-color: #eeeeee;
 }
 
-ul:hover {
-    cursor: pointer;
-    background-color: #eeeeee;
+div.headercontainer {
+    padding-left: 5%;
+    text-align: left;
+}
+
+
+div.clubdiv {
+    padding: 0 10px;
+    border-style: solid;
+    /*border-radius: 10px;*/
+    border-width: 1px;
+    border-color: black;
 }
 
 input.searchfield {
@@ -14,27 +37,33 @@ input.searchfield {
     border-style: solid;
 
     position: absolute;
-    top: 15%;
-    right: 25%;
-    left: 25%;
+    top: 16%;
+    right: 15%;
+    left: 35%;
 }
 
 div.container {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 
-    padding-left: 25%;
-    padding-right: 25%;
+    position: inherit;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    left: auto;
 }
 
 div.clubs {
-    width: 22%;
-    height: 75%;
+    /*background-color: #6BEEB3;*/
+    width: 30%;
+    height: 90%;
 
     overflow-y: auto;
-    padding-right: 1%;
+    padding-right: 3%;
+    padding-left: auto;
+
     position: absolute;
-    top: 20%;
+    top: 8%;
     bottom: auto;
     right: auto;
     left: 0%;
@@ -60,8 +89,8 @@ div.map {
 
     position: absolute;
     top: 22%;
-    left: 25%;
-    right: 25%;
+    left: 35%;
+    right: 15%;
 }
 
 select.options {

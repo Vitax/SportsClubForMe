@@ -109,7 +109,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
-        zoom: 10
+        zoom: 9
     };
 
     var map = new google.maps.Map(mapCanvas, mapOptions);
@@ -135,7 +135,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
     var resetMap = function () {
         map.panTo(berlinLatLng);
-        map.setZoom(10);
+        map.setZoom(9);
     }
 
     //add marker to the map
@@ -150,11 +150,11 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
 
             // content of each infoWindow
             var content =
-                ' <p style=" font-size: 1.2em"> <strong>' + value.clubname + '</p> </strong>' +
+                '<p style=" font-size: 1.2em"> <strong>' + value.clubname + '</p> </strong>' +
                 '<em>' + 'Anschrift : ' + value.address + ', ' + '</em>' + '<em> ' + value.postcode + '</em> <br>' +
                 '<em>' + 'Telefon : ' + value.phonenumber + '</em> </br> ' +
                 '<em>' + 'EMail-Addresse : ' + value.mailaddress + '</em> <br> ' +
-                '<em>' +  'Webseite : ' + '<a href = "' + value.webpage + '">' + value.webpage + '</a>' + '</em>' ;
+                '<em>' + 'Webseite : ' + '<a href = "' + value.webpage + '" target = "_blank">' + value.webpage + '</a>' + '</em>' ;
 
             // single marker with its content
             marker = new google.maps.Marker({
