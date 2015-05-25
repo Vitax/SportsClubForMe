@@ -31,12 +31,12 @@
                 <!-- iterate over the keys object to get the values out of it-->
                  <ul ng-repeat="(key,value) in keys" ng-hide="searchCriteria == ''" >
                     <hr>
-                    <div class="clubdiv" ng-mouseover="clickedObject(value)" ng-mouseleave="">
-                        <Span style="font-size: 0.9em"> <strong> {{value.clubname}} </strong> </Span> <br>
-                        <em style="font-size: 0.8em">{{'Address: ' + value.address }}</em> <br>
-                        <em style="font-size: 0.8em">{{'Postcode: ' + value.postcode }}</em> <br>
-                        <em style="font-size: 0.8em">{{'Phonenumber: ' + value.phonenumber }}</em> <br>
-                        <em style="font-size: 0.8em">{{'Webpage: ' +value.webpage}}</em>
+                    <div class="clubdiv" ng-click="clickedObject(value)">
+                        <Span style="font-size: 1em"> <strong> {{value.clubname}} </strong> </Span> <br>
+                        <em style="font-size: 0.9em">{{'Address: ' + value.address }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Postcode: ' + value.postcode }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Phonenumber: ' + value.phonenumber }}</em> <br>
+                        <em style="font-size: 0.9em">{{'Webpage: ' +value.webpage}}</em>
                     </div>
                     <hr>
                 </ul>

@@ -109,6 +109,7 @@ app.controller('MapCtrl', ['$scope', '$http', 'geoDataService', function ($scope
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: berlinLatLng,
+        disableDefaultUI: true,
         zoom: 9
     };
 
